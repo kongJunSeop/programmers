@@ -7,26 +7,19 @@
 using namespace std;
 set<int> numberset;
 void recursive(string comb, string left) {
-    if (comb != "") {
-        numberset.insert(stoi(comb));
-    }
-    for (int c = 0; c < left.size(); c++) {
+    if (comb != "") numberset.insert(stoi(comb));
+    for (int c = 0; c < left.size(); c++)
         recursive(comb + left[c], left.substr(0, c) + left.substr(c + 1));
-    }
 }
 bool isprime(int num) {
     bool isprime = true;
     if (num < 2) return false;
-    for (int c = 2; c <= sqrt(num); c++) {
-        if (num % c == 0) isprime = 0;
-    }
+    for (int c = 2; c <= sqrt(num); c++) if (num % c == 0) isprime = 0;
     return isprime;
 }
 int solution(string numbers) {
     int answer = 0;
     recursive("", numbers);
-    for (int num : numberset) {
-        if (isprime(num))answer++;
-    }
+    for (int num : numberset) if (isprime(num))answer++;
     return answer;
 }
